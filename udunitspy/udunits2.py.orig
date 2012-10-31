@@ -1,0 +1,216 @@
+import udunits2_c as ut
+from udunits2_c import UT_ASCII, UT_UTF8, UT_ISO_8859_1, UT_LATIN1, UT_NAMES, UT_DEFINITION
+
+class System:
+    """Unit system (ut_system).
+    """
+    
+    def __init__(self, path = None, empty = False):
+        """Creates a unit system
+        """
+        if empty:
+            self.this = ut.new_system()
+        else:
+            self.this = ut.read_xml(path)
+
+        if self.this == None:
+            err = ut.get_status()
+            raise Exception("initialization failed: ut_get_status() returns %s" % err)
+
+    def unit_by_name(self, name):
+        pass
+
+    def unit_by_symbol(self, symbol):
+        pass
+
+    def add_name_prefix(self, prefix):
+        pass
+
+    def add_symbol_prefix(self, prefix):
+        pass
+
+    def new_base_unit(self):
+        pass
+
+    def new_dimensionless_unit(self):
+        pass
+
+    def get_dimensionless_unit_one(self):
+        pass
+
+
+class Unit:
+    """Unit class (ut_unit).
+    """
+
+    def __init__(self, system, spec = "", encoding = UT_ASCII):
+        """Initialize a unit. Calls ut_parse().
+        """
+        self.this = ut.parse(system.this, spec, encoding)
+        self.system = system
+
+        if self.this == None:
+            err = ut.get_status()
+            raise Exception("ut_parse failed: ut_get_status() returns %s" % err)
+
+    def copy(unit):
+        result = Unit(self.system)
+        result.this = ut.clone(self.this)
+
+        return result
+
+    def __str__(self):
+        tmp = ut.get_name(self.this, UT_ASCII)
+        if tmp:
+            return tmp
+        return self.format()
+
+    def __repr__(self):
+        return "<units of '%s'>" % self.__str__()
+
+    def format(self, encoding = UT_ASCII):
+        """Return a string representation. Calls ut_format().
+        """
+        _, result = ut.format(self.this, 2048, encoding)
+
+        return result
+
+    def multiply_or_divide(self, x, multiply = True):
+        if multiply:
+            function = ut.multiply
+        else:
+            function = ut.divide
+        
+        result = Unit(self.system)
+
+        if isinstance(x, (int, long, float)):
+            if multiply == False:
+                x = 1.0/x
+            result.this = ut.scale(x, self.this)
+        elif isinstance(x, Unit):
+            result.this = function(self.this, x.this)
+
+        return result
+
+    def __mul__(self, x):
+        return self.multiply_or_divide(x, True)
+
+    def __rmul__(self, x):
+        return self.__mul__(x)
+
+    def __div__(self, x):
+        return self.multiply_or_divide(x, False)
+
+    def __pow__(self, x):
+        result = Unit(self.system)
+        result.this = ut.pow(self.this, int(x))
+        return result
+
+    def __sub__(self, x):
+        result = Unit(self.system)
+        result.this = ut.offset(self.this, x)
+        return result
+
+    def __add__(self, x):
+        return self.__sub__(-x)
+
+    def __cmp__(self, other):
+        return ut.compare(self.this, other.this)
+
+    def set_second():
+        ut.set_second(self.this)
+
+    def map_to_name(self, name):
+        pass
+
+    def unmap_to_name(self, name):
+        pass
+
+    def map_name_to(self, name):
+        pass
+
+    def unmap_name_to(self, name):
+        pass
+
+    def get_symbol(self):
+        pass
+
+    def is_dimensionless(self):
+        return ut.is_dimensionless(self.this) == 1
+
+    def same_system(self, unit):
+        return ut.same_system(self.this, unit.this) == 1
+
+    def are_convertible(self, unit):
+        if isinstance(unit, str):
+            tmp = Unit(self.system, unit)
+            return ut.are_convertible(self.this, tmp.this) == 1
+        elif isinstance(unit, Unit):
+            return ut.are_convertible(self.this, unit.this) == 1
+
+    def invert(self):
+        result = Unit(self.system)
+        result.this = ut.invert(self.this)
+        return result
+
+    def root(self, n):
+        result = Unit(self.system)
+        result.this = ut.root(self.this, int(n))
+        return result
+
+    def log(self, base):
+        result = Unit(self.system)
+        result.this = ut.log(float(base), self.this)
+        return result
+
+class Converter:
+    """Unit converter class (cv_converter).
+    """
+        
+    def __init__(self, unit_1 = None, unit_2 = None, trivial = False, inverse = None,
+                 scale = None, offset = None, base = None, power = None):
+        """Initialize a converter.
+        """
+        if trivial:
+            self.this = ut.cv_get_trivial()
+        elif inverse:
+            self.this = ut.cv_get_inverse()
+        elif scale != None and offset != None:
+            self.this = ut.cv_get_galilean(scale, offset)
+        elif scale != None:
+            self.this = ut.cv_get_scale(scale)
+        elif offset != None:
+            self.this = ut.cv_get_offset(offset)
+        elif base != None:
+            self.this = ut.cv_get_log(base)
+        elif power != None:
+            self.this = ut.cv_get_pow(power)
+        else:
+            self.this = ut.get_converter(unit_1.this, unit_2.this)
+
+        if self.this == None:
+            err = ut.get_status()
+            raise Exception("failed: ut_get_status() returns %s" % err)
+
+    def __call__(self, x):
+        if isinstance(x, Converter):
+            result = Converter(trivial=True)
+            result.this = ut.cv_combine(x.this, self.this)
+
+            if result.this == None:
+                err = ut.get_status()
+                raise Exception("cv_combine failed: ut_get_status() returns %s" % err)
+
+            return result 
+        elif isinstance(x, (int, long, float)):
+            return ut.cv_convert_double(self.this, float(x))
+
+    def get_expression(self, variable):
+        _, result = ut.cv_get_expression(self.this, 2048, variable)
+        return result
+
+    def __repr__(self):
+        return "<unit converter: %s>" % self.__str__()
+
+    def __str__(self):
+        return "y = %s" % self.get_expression("x")
