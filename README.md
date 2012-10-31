@@ -1,10 +1,7 @@
-OOICI Coverage Model
+udunitspy
 ==============
 
-Initial coverage model implementation
-
-Reference Information: https://confluence.oceanobservatories.org/display/CIDev/R2+Construction+Data+Model+Implementation
-
+Python wrapper library for udunits2
 
 #Prerequisites
 
