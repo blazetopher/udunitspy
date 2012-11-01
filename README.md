@@ -64,13 +64,17 @@ Clone the git repository:
 ###iutil
 The iutil shell script installs/uninstalls the udunitspy library for development purposes
 
+####Install
 Run the *iutil* shell script with no arguments to install the library:
 
     iutil
 
-**Rerun the *inst* script (with no arguments) after changes are made to install the changes to your working environment**
+####Re-Install
+Run the *iutil* script with the argument 'r' to apply changes to your working environment
 
-###Uninstall
+    iutil r
+
+####Uninstall
 The library and dependencies can be uninstalled by calling the *iutil* script with the argument 'u':
 
     iutil u

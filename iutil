@@ -5,6 +5,11 @@ then
     echo "Uninstalling udunitspy"
     pip uninstall -y numexpr udunitspy
 else
+    if [[ $# -ge 1 && "$1" == "r" ]]
+    then
+        pip uninstall -y udunitspy
+    fi
+
     echo "Installing udunitspy"
     bdir="build"
     mkdir -p ${bdir}
