@@ -4,10 +4,7 @@ udunitspy
 Python wrapper library for udunits2
 
 #Prerequisites
-
-This assumes basic development environment setup (git, directory structure). Please follow the
-"New Developers Tutorial" for basic steps.
-
+*These steps are tailored for a Mac OSX environment.  The library **should** function on linux as well, but modifications to the following setup may be required*
 
 **Install the following if not yet present:**
 
@@ -58,18 +55,61 @@ ipython is an 'extended' python shell which provides useful functionality such a
 
     pip install ipython
 
-#Installation
-**Ensure you are in a virtualenv prior to running the steps below**
+#Source installation (for development)
+Clone the git repository:
 
-From the *udunitspy* directory, run the following commands:
+    git clone https://github.com/blazetopher/udunitspy.git
+    cd udunitspy
 
-    pip install https://github.com/blazetopher/udunitspy/tarball/master#egg=udunitspy-0.1'
+###iutil
+The iutil shell script installs/uninstalls the udunitspy library for development purposes
 
-Once those steps complete, you should be able to import the udunits from the python shell:
+Run the *iutil* shell script with no arguments to install the library:
 
-    ipython # or python
-    from udunitspy.udunits2 import Unit
-    m = Unit('m')
-    ft = Unit('ft')
-    m2ft = m.get_converter(ft)
-    m2ft.evaluate([10,15,20])
+    iutil
+
+**Rerun the *inst* script (with no arguments) after changes are made to install the changes to your working environment**
+
+###Uninstall
+The library and dependencies can be uninstalled by calling the *iutil* script with the argument 'u':
+
+    iutil u
+
+Access/use the library as described in **Usage** below.
+
+#Installation as a library
+**Ensure your environment matches the prerequisites prior to running the steps below**
+
+###As a local library
+Run the following commands:
+
+    pip install https://github.com/blazetopher/udunitspy/tarball/master#egg=udunitspy-0.1
+
+###As a project dependency
+The library can be included in your project by adding the following to your *setup.py*:
+
+    dependency_links = [
+        ...,
+        'https://github.com/blazetopher/udunitspy/tarball/master#egg=udunitspy-0.1,
+    ],
+    install_requires = [
+        ...,
+        udunitspy==0.1,
+    ],
+
+# Usage
+Once the library is installed, you should be able to access and use it from the ipython/python shell:
+
+    In [1]: from udunitspy.udunits2 import Unit
+
+    In [2]: m = Unit('m')
+
+    In [3]: ft = Unit('ft')
+
+    In [4]: m.are_convertible(ft)
+    Out[4]: True
+
+    In [5]: m2ft = m.get_converter(ft)
+
+    In [6]: m2ft.evaluate([20, 22.3, 25.6])
+    Out[6]: array([ 65.6168  ,  73.162732,  83.989504])

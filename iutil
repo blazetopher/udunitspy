@@ -1,0 +1,30 @@
+#!/bin/bash
+
+if [[ $# -ge 1 && "$1" == "u" ]]
+then
+    echo "Uninstalling udunitspy"
+    pip uninstall -y PyYAML graypy numexpr utilities udunitspy
+else
+    echo "Installing udunitspy"
+    bdir="build"
+    mkdir -p ${bdir}
+
+    echo "Copying files to '"${bdir}"'"
+    cp .gitignore ${bdir}
+    cp setup.py ${bdir}
+    cp README.md ${bdir}
+    cp -r src ${bdir}
+    cp -r etc ${bdir}
+
+    echo "Creating tar.gz..."
+    COPYFILE_DISABLE=1 tar --exclude=*.pyc -czf udunitspy.tar.gz ${bdir}
+
+    echo "Installing udunitspy.tar.gz..."
+    pip install -q udunitspy.tar.gz
+
+    echo "Cleaning up..."
+    rm udunitspy.tar.gz
+    rm -rf build
+
+    Echo "Finished"
+fi

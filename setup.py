@@ -40,7 +40,7 @@ class ext_build(build):
 cmdclass = {'build': ext_build}
 
 udunits_module = Extension('_udunits2_c',
-    sources=['udunitspy/udunits2_c.i'],
+    sources=['src/udunitspy/udunits2_c.i'],
     swig_opts=['-c++', '-I/usr/local/include/'],
     include_dirs=['/usr/local/include/'],
     library_dirs=['/usr/local/lib/'],
@@ -57,6 +57,7 @@ dist = setup(name='udunitspy',
     url='',
     cmdclass=cmdclass,
     ext_modules = [udunits_module],
+    package_dir={'':'src'},
     packages=['udunitspy'],
     data_files=[('etc/udunits', xml_files),],
     dependency_links = [
