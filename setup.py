@@ -52,7 +52,7 @@ xml_files = [os.path.join(xml_dir, f) for f in os.listdir(xml_dir)]
 dist = setup(name='udunitspy',
     version='0.1',
     description='Python wrapper for UDUNITS2',
-    author='OOI CI',
+    author='Christopher Mueller',
     author_email='cmueller@asascience.com',
     url='',
     cmdclass=cmdclass,
