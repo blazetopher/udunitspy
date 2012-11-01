@@ -28,6 +28,18 @@ from udunitspy.udunits2_c import UT_ASCII
 import os
 import numexpr as ne
 import sys
+import logging
+try:
+    # Python 2.7
+    from logging import NullHandler
+except ImportError:
+    # Python < 2.7
+    import logging
+    class NullHandler(logging.Handler):
+        def emit(self, record):
+            pass
+log = logging.getLogger()
+log.addHandler(NullHandler())
 
 ERROR_LOOKUP = {
     0: 'UT_SUCCESS',
@@ -189,6 +201,11 @@ class Unit:
     def __sub__(self, x):
         result = Unit(system=self.system)
         result.this = ut.offset(self.this, x)
+        return result
+
+    def __neg__(self):
+        result = Unit(system=self.system)
+        result.this = self.multiply_or_divide(-1)
         return result
 
     def __add__(self, x):
