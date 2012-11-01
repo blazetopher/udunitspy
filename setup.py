@@ -23,14 +23,21 @@ Copyright (C) UC Regents 2012
 """
 try:
     from setuptools import setup, Extension, find_packages
-    from setuptools.command.build_py import build_py
-    from setuptools.command.install_lib import install_lib
+    from setuptools.command.build_ext import build_ext
 except:
     from distutils.core import setup, Extension
-    from distutils.command.build_py import build_py
-    from distutils.command.install_lib import install_lib
+    from distutils.command.build_ext import build_ext
+
+
+from distutils.command.build import build
 
 import os
+
+# Custom build ordering ensuring that build_ext occurs BEFORE build_py - otherwise, the swig compiled udunits2_c.py is not included
+class ext_build(build):
+    sub_commands = [('build_ext', build.has_ext_modules)] + build.sub_commands
+
+cmdclass = {'build': ext_build}
 
 udunits_module = Extension('_udunits2_c',
     sources=['udunitspy/udunits2_c.i'],
@@ -48,6 +55,7 @@ dist = setup(name='udunitspy',
     author='OOI CI',
     author_email='cmueller@asascience.com',
     url='',
+    cmdclass=cmdclass,
     ext_modules = [udunits_module],
     packages=['udunitspy'],
     data_files=[('etc/udunits', xml_files),],
@@ -59,13 +67,3 @@ dist = setup(name='udunitspy',
         'utilities',
     ],
 )
-
-# Rerun build_py to ensure that swig generated udunitspy_c.py is created
-bpy = build_py(dist)
-bpy.ensure_finalized()
-bpy.run()
-
-# Rerun install_lib to ensure the udunitspy_c.py is installed
-inst = install_lib(dist)
-inst.ensure_finalized()
-inst.run()
