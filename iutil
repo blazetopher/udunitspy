@@ -3,7 +3,7 @@
 if [[ $# -ge 1 && "$1" == "u" ]]
 then
     echo "Uninstalling udunitspy"
-    pip uninstall -y PyYAML graypy numexpr utilities udunitspy
+    pip uninstall -y numexpr udunitspy
 else
     echo "Installing udunitspy"
     bdir="build"

@@ -60,11 +60,7 @@ dist = setup(name='udunitspy',
     package_dir={'':'src'},
     packages=['udunitspy'],
     data_files=[('etc/udunits', xml_files),],
-    dependency_links = [
-        'https://github.com/ooici/utilities/tarball/master#egg=utilities-9999',
-    ],
     install_requires = [
         'numexpr==2.0.1',
-        'utilities',
     ],
 )
