@@ -55,7 +55,6 @@ dist = setup(name='udunitspy',
         'https://github.com/ooici/utilities/tarball/master#egg=utilities-9999',
     ],
     install_requires = [
-        'netCDF4>=0.9.8',
         'numexpr==2.0.1',
         'utilities',
     ],

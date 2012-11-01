@@ -23,8 +23,8 @@ Copyright (C) UC Regents 2012
 """
 
 from copy import deepcopy
-import udunits2_c as ut
-from udunits2_c import UT_ASCII
+import udunitspy.udunits2_c as ut
+from udunitspy.udunits2_c import UT_ASCII
 import os
 import numexpr as ne
 import sys

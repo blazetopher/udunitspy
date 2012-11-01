@@ -1,1 +1,6 @@
 *.pyc
+udunitspy.egg-info
+udunitspy/udunits2_c.py
+udunitspy/udunits2_c_wrap.cpp
+dist
+build
