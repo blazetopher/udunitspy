@@ -129,8 +129,17 @@ class System:
 
         return res
 
+# Check various locations for a default UDUNITS2 library
+# Pip installed location
 DEFAULT_UDUNITS_PATH = os.path.realpath(os.path.join(sys.prefix, 'etc','udunits','udunits2.xml'))
-# print DEFAULT_UDUNITS_PATH
+if not os.path.exists(DEFAULT_UDUNITS_PATH):
+    # Development
+    DEFAULT_UDUNITS_PATH = os.path.realpath(os.path.join(os.path.dirname(__file__), '..','etc','udunits','udunits2.xml'))
+if not os.path.exists(DEFAULT_UDUNITS_PATH):
+    # Installed by udunits library
+    DEFAULT_UDUNITS_PATH = '/usr/local/share/udunits/udunits2.xml'
+
+log.info('Using udunits2.xml database: %s', DEFAULT_UDUNITS_PATH)
 DEFAULT_SYSTEM = System(path=DEFAULT_UDUNITS_PATH)
 
 class Unit:

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+rm -rf build
+rm -rf dist
+rm -rf udunitspy.egg-info
+rm _udunits2_c.so
+find . -name "udunits2_c_wrap.cpp" -exec rm -rf {} \;
+find . -name "udunits2_c.py" -exec rm -rf {} \;
+find . -name "*.pyc" -exec rm -rf {} \;
+rm -rf udunitspy/test/__pycache__

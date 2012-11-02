@@ -22,7 +22,7 @@ Author: Christopher Mueller
 Copyright (C) UC Regents 2012
 """
 try:
-    from setuptools import setup, Extension, find_packages
+    from setuptools import setup, Extension
     from setuptools.command.build_ext import build_ext
 except:
     from distutils.core import setup, Extension
@@ -40,7 +40,7 @@ class ext_build(build):
 cmdclass = {'build': ext_build}
 
 udunits_module = Extension('_udunits2_c',
-    sources=['src/udunitspy/udunits2_c.i'],
+    sources=['udunitspy/udunits2_c.i'],
     swig_opts=['-c++', '-I/usr/local/include/'],
     include_dirs=['/usr/local/include/'],
     library_dirs=['/usr/local/lib/'],
@@ -57,10 +57,10 @@ dist = setup(name='udunitspy',
     url='',
     cmdclass=cmdclass,
     ext_modules = [udunits_module],
-    package_dir={'':'src'},
-    packages=['udunitspy'],
+    packages=['udunitspy', 'udunitspy.test'],
     data_files=[('etc/udunits', xml_files),],
     install_requires = [
         'numexpr==2.0.1',
+        'pytest==2.3.2',
     ],
 )
