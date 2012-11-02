@@ -69,15 +69,17 @@ Run the *iutil* shell script with no arguments to install the library:
 
     iutil
 
-####Re-Install
-Run the *iutil* script with the argument 'r' to apply changes to your working environment
-
-    iutil r
+During development, there is no need to reinstall.  Changes to the source are automatically reflected in your working environment.
 
 ####Uninstall
 The library and dependencies can be uninstalled by calling the *iutil* script with the argument 'u':
 
     iutil u
+
+####Distribute
+A tar.gz for the library can be created by running the *iutil* script with the 'd' argument:
+
+    iutil d
 
 Access/use the library as described in **Usage** below.
 
