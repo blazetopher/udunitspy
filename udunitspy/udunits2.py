@@ -96,7 +96,7 @@ class System:
         ret = Unit(system=self.this)
         ret.this = ut.get_unit_by_symbol(self.this, symbol)
         if not ret.this:
-            raise UdunitsError(System.get_unit_by_symbol.__name__, ut.get_status(), 'No unit with symbol \'{0}\' in system'.format(name))
+            raise UdunitsError(System.get_unit_by_symbol.__name__, ut.get_status(), 'No unit with symbol \'{0}\' in system'.format(symbol))
 
         return ret
 
