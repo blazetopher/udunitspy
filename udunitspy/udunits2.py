@@ -85,18 +85,20 @@ class System:
             raise UdunitsError(System.__init__.__name__, ut.get_status())
 
     def get_unit_by_name(self, name):
-        res = ut.get_unit_by_name(self.this, name)
-        if not res:
+        ret = Unit(system=self.this)
+        ret.this = ut.get_unit_by_name(self.this, name)
+        if not ret.this:
             raise UdunitsError(System.get_unit_by_name.__name__, ut.get_status(), 'No unit with name \'{0}\' in system'.format(name))
 
-        return res
+        return ret
 
     def get_unit_by_symbol(self, symbol):
-        res = ut.get_unit_by_symbol(self.this, symbol)
-        if not res:
+        ret = Unit(system=self.this)
+        ret.this = ut.get_unit_by_symbol(self.this, symbol)
+        if not ret.this:
             raise UdunitsError(System.get_unit_by_symbol.__name__, ut.get_status(), 'No unit with symbol \'{0}\' in system'.format(name))
 
-        return res
+        return ret
 
     def add_name_prefix(self, name, value):
         res = ut.add_name_prefix(self.this, name, value)
@@ -116,18 +118,20 @@ class System:
         return res
 
     def new_dimensionless_unit(self):
-        res = ut.new_dimensionless_unit(self.this)
-        if not res:
+        ret = Unit(system=self.this)
+        ret.this = ut.new_dimensionless_unit(self.this)
+        if not ret.this:
             raise UdunitsError(System.new_dimensionless_unit.__name__, ut.get_status())
 
-        return res
+        return ret
 
     def get_dimensionless_unit_one(self):
-        res = ut.get_dimensionless_unit_one(self.this)
-        if not res:
+        ret = Unit(system=self.this)
+        ret.this = ut.get_dimensionless_unit_one(self.this)
+        if not ret.this:
             raise UdunitsError(System.get_dimensionless_unit_one.__name__, ut.get_status())
 
-        return res
+        return ret
 
 # Check various locations for a default UDUNITS2 library
 # Pip installed location
@@ -318,6 +322,13 @@ class Converter:
         elif power is not None:
             self.this = ut.cv_get_pow(power)
         else:
+            if unit_1 is None or unit_2 is None:
+                raise TypeError('\'unit_1\' and \'unit_2\' cannot be None')
+
+            if isinstance(unit_1, str):
+                unit_1 = Unit(unit_1)
+            if isinstance(unit_2, str):
+                unit_2 = Unit(unit_2)
             self.this = ut.get_converter(unit_1.this, unit_2.this)
 
         if self.this is None:
@@ -329,7 +340,7 @@ class Converter:
         elif isinstance(x, (int, long, float)):
             return ut.cv_convert_double(self.this, float(x))
         elif hasattr(x, '__iter__'):
-            return self.evaluate(x)
+            return self._evaluate(x)
 
     def combine(self, other):
         if not isinstance(other, Converter):
@@ -342,11 +353,18 @@ class Converter:
 
         return result
 
-    def get_expression(self, variable):
+    def get_expression(self, variable=None):
+        if variable is None:
+            variable = 'x'
+        elif not isinstance(variable, str):
+            raise TypeError('If specified, \'variable\' must be of type str')
         _, result = ut.cv_get_expression(self.this, 2048, variable)
         return result
 
     def evaluate(self, value):
+        return self(value)
+
+    def _evaluate(self, value):
         x = deepcopy(value)
         expr = self.get_expression('x')
         ret = ne.evaluate(expr)
