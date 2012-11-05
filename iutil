@@ -3,7 +3,7 @@
 if [[ $# -ge 1 && "$1" == "u" ]]
 then
     echo "Uninstalling udunitspy"
-    pip uninstall -y numexpr pytest py udunitspy
+    pip uninstall -y numexpr pytest py pytest-cov udunitspy
     clean
 elif [[ $# -ge 1 && "$1" == "d" ]]
 then
