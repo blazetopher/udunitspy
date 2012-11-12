@@ -23,21 +23,26 @@ Copyright (C) UC Regents 2012
 """
 try:
     from setuptools import setup, Extension
-    from setuptools.command.build_ext import build_ext
+    from setuptools.command.bdist_egg import bdist_egg
 except:
     from distutils.core import setup, Extension
-    from distutils.command.build_ext import build_ext
 
 
-from distutils.command.build import build
+from distutils.command.build import build as build_
 
 import os
 
 # Custom build ordering ensuring that build_ext occurs BEFORE build_py - otherwise, the swig compiled udunits2_c.py is not included
-class ext_build(build):
-    sub_commands = [('build_ext', build.has_ext_modules)] + build.sub_commands
+class ext_build(build_):
+    sub_commands = [('build_ext', build_.has_ext_modules)] + build_.sub_commands
 
-cmdclass = {'build': ext_build}
+class egg_install(bdist_egg):
+    def run(self):
+        self.run_command('build_ext')
+        bdist_egg.run(self)
+
+
+cmdclass = {'build': ext_build, 'bdist_egg':egg_install}
 
 udunits_module = Extension('_udunits2_c',
     sources=['udunitspy/udunits2_c.i'],
@@ -65,3 +70,5 @@ dist = setup(name='udunitspy',
         'pytest-cov==1.6',
     ],
 )
+
+
