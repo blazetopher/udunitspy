@@ -41,23 +41,24 @@ except ImportError:
 log = logging.getLogger()
 log.addHandler(NullHandler())
 
+# Udunits2 Errors - from udunits2.h
 ERROR_LOOKUP = {
-    0: 'UT_SUCCESS',
-    1: 'UT_BAD_ARG',
-    2: 'UT_EXISTS',
-    3: 'UT_NO_UNIT',
-    4: 'UT_OS',
-    5: 'UT_NOT_SAME_SYSTEM',
-    6: 'UT_MEANINGLESS',
-    7: 'UT_NO_SECOND',
-    8: 'UT_VISIT_ERROR',
-    9: 'UT_CANT_FORMAT',
-    10: 'UT_SYNTAX',
-    11: 'UT_UNKNOWN',
-    12: 'UT_OPEN_ARG',
-    13: 'UT_OPEN_ENV',
-    14: 'UT_OPEN_DEFAULT',
-    15: 'UT_PARSE',
+    0: 'UT_SUCCESS:  Success',
+    1: 'UT_BAD_ARG:  An argument violates the function\'s contract',
+    2: 'UT_EXISTS:  Unit, prefix, or identifier already exists',
+    3: 'UT_NO_UNIT:  No such unit exists',
+    4: 'UT_OS:  Operating-system error.  See \'errno\'',
+    5: 'UT_NOT_SAME_SYSTEM:  The units belong to different unit-systems',
+    6: 'UT_MEANINGLESS:  The operation on the unit(s) is meaningless',
+    7: 'UT_NO_SECOND:  The unit-system doesn\'t have a unit named \'second\'',
+    8: 'UT_VISIT_ERROR:  An error occurred while visiting a unit',
+    9: 'UT_CANT_FORMAT:  A unit can\'t be formatted in the desired manner',
+    10: 'UT_SYNTAX:  String unit representation contains syntax error',
+    11: 'UT_UNKNOWN:  String unit representation contains unknown word',
+    12: 'UT_OPEN_ARG:  Can\'t open argument-specified unit database',
+    13: 'UT_OPEN_ENV:  Can\'t open environment-specified unit database',
+    14: 'UT_OPEN_DEFAULT:  Can\'t open installed, default, unit database',
+    15: 'UT_PARSE:  Error parsing unit specification',
 }
 
 def _make_error_message(from_name, error_num, message=None):
