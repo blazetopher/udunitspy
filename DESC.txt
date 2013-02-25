@@ -1,10 +1,16 @@
 Prerequisites
 ------------------
 
+*C requirements*
+
   * python
   * udunits2
-  
-*See README for details*
+
+*Python requirements*
+
+  * numpy
+
+*See [README](https://github.com/blazetopher/udunitspy/blob/master/README.md) for details*
 
 Copying
 -----------

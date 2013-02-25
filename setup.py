@@ -63,7 +63,7 @@ Topic :: Scientific/Engineering
 Topic :: Education
 Topic :: Software Development :: Libraries :: Python Modules'''
 setup(name='udunitspy',
-    version='0.0.3',
+    version='0.0.4',
     description='Python wrapper for UDUNITS2',
     long_description=open('DESC.txt').read(),
     license='LICENSE.txt',
