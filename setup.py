@@ -54,14 +54,25 @@ udunits_module = Extension('_udunits2_c',
 xml_dir = 'etc/udunits'
 xml_files = [os.path.join(xml_dir, f) for f in os.listdir(xml_dir)]
 
-dist = setup(name='udunitspy',
-    version='0.1',
+classifiers = ''' Intended Audience :: Science/Research
+Intended Audience :: Developers
+Intended Audience :: Education
+Operating System :: OS Independent
+Programming Language :: Python
+Topic :: Scientific/Engineering
+Topic :: Education
+Topic :: Software Development :: Libraries :: Python Modules'''
+setup(name='udunitspy',
+    version='0.0.1',
     description='Python wrapper for UDUNITS2',
+    long_description=open('README.md').read(),
+    license='LICENSE.txt',
     author='Christopher Mueller',
     author_email='cmueller@asascience.com',
-    url='',
+    url='https://github.com/blazetopher/udunitspy/',
     cmdclass=cmdclass,
     ext_modules = [udunits_module],
+    classifiers=classifiers.split('\n'),
     packages=['udunitspy', 'udunitspy.test'],
     data_files=[('etc/udunits', xml_files),],
     install_requires = [
