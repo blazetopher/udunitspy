@@ -79,7 +79,7 @@ The library can be included in your project by adding the following to your *set
 # Usage
 Once the library is installed, you should be able to access and use it from the ipython/python shell:
 
-    In [1]: from udunitspy.udunits2 import Unit
+    In [1]: from udunitspy import Unit
 
     In [2]: m = Unit('m')
 
