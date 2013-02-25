@@ -65,7 +65,7 @@ Topic :: Software Development :: Libraries :: Python Modules'''
 setup(name='udunitspy',
     version='0.0.2',
     description='Python wrapper for UDUNITS2',
-    long_description=open('LICENSE.txt').read(),
+    long_description=open('DESC.txt').read(),
     license='LICENSE.txt',
     author='Christopher Mueller',
     author_email='cmueller@asascience.com',
