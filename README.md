@@ -111,7 +111,7 @@ During development, there is no need to reinstall.  Changes to the source are au
 
 The library and dependencies can be uninstalled by calling:
 
-    pip uninstall -y numexpr pytest py pytest-cov udunitspy
+    pip uninstall -y numexpr pytest py pytest-cov coverage cov-core udunitspy
     
 Leftover files & directories can be removed by running:
     
