@@ -6,36 +6,30 @@ Python wrapper library for udunits2
 #Prerequisites
 *These steps are tailored for a Mac OSX environment.  The library **should** function on linux as well, but modifications to the following setup may be required*
 
-**Install the following if not yet present:**
+###Required libraries
+  * git
+  * python
+  * uduints
 
-**Install** git 1.7.7:
-*Download the Mac or Linux installer and run it*
-
-*OS Packages and package management:*
-For Mac, use homebrew
+#Homebrew (OSX)
 
     /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
 
-  * python 2.7
-  * udunits
-
-
-**Install** python and udunits with Homebrew
+**Install** git, python, and udunits with Homebrew
     
-    brew install python udunits
-    
-**Python packages and environment management:**
+    brew install git python udunits
 
-**Install** pip
+##Optional Python Dependencies
+These dependencies are optional, but tend to make life a little easier.
 
-    easy_install pip
+# Virtualenv
+Virtualenv allows creation of isolated Python environments.  See more [here](http://www.virtualenv.org/en/1.9.X/#).
 
 **Install** virtualenv and virtualenvwrapper modules for your python 2.7 installation
-*Note: This may require Mac's XCode (use XCode 3.3 free version*
+*Note: This may require OSX's XCode (can use XCode 3.3 free version)*
 
     easy_install --upgrade virtualenv
     easy_install --upgrade virtualenvwrapper
-
 
 Setup a virtualenv to run coverage-model (use any name you like):
 
@@ -45,62 +39,41 @@ Ensure you're 'working in' the virtualenv you just made:
 
     workon udunitspy
 
+#Pip
+
+You can just use *easy_install* if you prefer.
+
+**Install** pip
+
+    easy_install pip
+
+#ipython
+ipython is an 'extended' python shell which provides useful functionality such as tab-complete, history, etc.  If you wish to use it, you can install it by running:
+
+    pip install ipython
+
+##Required Python Dependencies
+These dependencies are required for the library to function
+
 #Numpy
 The numpy library is finiky about installing as a dependency via setuptools, so ensure you have it installed in your virtualenv by running:
 
     pip install numpy
 
-#ipython (optional)
-ipython is an 'extended' python shell which provides useful functionality such as tab-complete, history, etc.  If you wish to use it, you can install it by running:
-
-    pip install ipython
-
-#Source installation (for development)
-Clone the git repository:
-
-    git clone https://github.com/blazetopher/udunitspy.git
-    cd udunitspy
-
-###iutil
-The iutil shell script installs/uninstalls the udunitspy library for development purposes
-
-####Install
-Run the *iutil* shell script with no arguments to install the library:
-
-    iutil
-
-During development, there is no need to reinstall.  Changes to the source are automatically reflected in your working environment.
-
-####Uninstall
-The library and dependencies can be uninstalled by calling the *iutil* script with the argument 'u':
-
-    iutil u
-
-####Distribute
-A tar.gz for the library can be created by running the *iutil* script with the 'd' argument:
-
-    iutil d
-
-Access/use the library as described in **Usage** below.
-
 #Installation as a library
 **Ensure your environment matches the prerequisites prior to running the steps below**
 
 ###As a local library
-Run the following commands:
+Run the following command:
 
-    pip install https://github.com/blazetopher/udunitspy/tarball/master#egg=udunitspy-0.1
+    pip install udunitspy
 
 ###As a project dependency
 The library can be included in your project by adding the following to your *setup.py*:
 
-    dependency_links = [
-        ...,
-        'https://github.com/blazetopher/udunitspy/tarball/master#egg=udunitspy-0.1,
-    ],
     install_requires = [
         ...,
-        udunitspy==0.1,
+        udunitspy,
     ],
 
 # Usage
@@ -119,3 +92,23 @@ Once the library is installed, you should be able to access and use it from the 
 
     In [6]: m2ft.evaluate([20, 22.3, 25.6])
     Out[6]: array([ 65.6168  ,  73.162732,  83.989504])
+
+#Source installation (for development)
+Clone the git repository:
+
+    git clone https://github.com/blazetopher/udunitspy.git
+    cd udunitspy
+
+###Install
+Install the uduintspy library for development:
+
+    python setup.py develop
+
+During development, there is no need to reinstall.  Changes to the source are automatically reflected in your working environment.
+
+#Uninstall
+***NOTE:** Please ensure these libraries aren't needed by other software before uninstalling!!*  
+
+The library and dependencies can be uninstalled by calling:
+
+    pip uninstall -y numexpr pytest py pytest-cov udunitspy
