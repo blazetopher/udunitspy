@@ -31,7 +31,6 @@ except:
 from distutils.command.build import build as build_
 
 import os
-
 # Custom build ordering ensuring that build_ext occurs BEFORE build_py - otherwise, the swig compiled udunits2_c.py is not included
 class ext_build(build_):
     sub_commands = [('build_ext', build_.has_ext_modules)] + build_.sub_commands
@@ -41,15 +40,30 @@ class egg_install(bdist_egg):
         self.run_command('build_ext')
         bdist_egg.run(self)
 
+include_dirs = [
+        '/usr/include',
+        '/usr/local/include',
+        ]
+if 'C_INCLUDE_PATH' in os.environ:
+    include_dirs = os.environ['C_INCLUDE_PATH'].split(':') + include_dirs
+
+lib_dirs = [
+        '/lib',
+        '/usr/lib',
+        '/usr/local/lib',
+        ]
+if 'LD_LIBRARY_PATH' in os.environ:
+    lib_dirs = os.environ['LD_LIBRARY_PATH'].split(':') + lib_dirs
+
 
 cmdclass = {'build': ext_build, 'bdist_egg':egg_install}
 
 udunits_module = Extension('_udunits2_c',
     sources=['udunitspy/udunits2_c.i'],
-    swig_opts=['-c++', '-I/usr/local/include/'],
-    include_dirs=['/usr/local/include/'],
-    library_dirs=['/usr/local/lib/'],
-    libraries=['udunits2'])
+    swig_opts=['-c++'] + ['-I%s' % i for i in include_dirs],
+    include_dirs=include_dirs,
+    library_dirs=lib_dirs,
+    libraries=['udunits2','expat'])
 
 xml_dir = 'etc/udunits'
 xml_files = [os.path.join(xml_dir, f) for f in os.listdir(xml_dir)]
@@ -63,7 +77,7 @@ Topic :: Scientific/Engineering
 Topic :: Education
 Topic :: Software Development :: Libraries :: Python Modules'''
 setup(name='udunitspy',
-    version='0.0.5',
+    version='0.0.6',
     description='Python wrapper for UDUNITS2',
     long_description=open('DESC.txt').read(),
     license='LICENSE.txt',
