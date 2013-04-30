@@ -63,7 +63,7 @@ Topic :: Scientific/Engineering
 Topic :: Education
 Topic :: Software Development :: Libraries :: Python Modules'''
 setup(name='udunitspy',
-    version='0.0.4',
+    version='0.0.5',
     description='Python wrapper for UDUNITS2',
     long_description=open('DESC.txt').read(),
     license='LICENSE.txt',
@@ -76,7 +76,7 @@ setup(name='udunitspy',
     packages=['udunitspy', 'udunitspy.test'],
     data_files=[('etc/udunits', xml_files),],
     install_requires = [
-        'numexpr==2.0.1',
+        'numexpr==2.1',
         'pytest==2.3.2',
         'pytest-cov==1.6',
     ],

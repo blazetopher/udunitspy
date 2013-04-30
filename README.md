@@ -93,6 +93,11 @@ Once the library is installed, you should be able to access and use it from the 
     In [6]: m2ft.evaluate([20, 22.3, 25.6])
     Out[6]: array([ 65.6168  ,  73.162732,  83.989504])
 
+#Unit Tests
+Unit tests can be run with the following command:
+
+    py.test
+
 #Source installation (for development)
 Clone the git repository:
 
