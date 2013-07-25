@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Udunitspy by blazetopher</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/blazetopher/udunitspy">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/blazetopher/udunitspy/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/blazetopher/udunitspy/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Udunitspy</h1>
+          <p>Python wrapper library for UDUNITS2</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/blazetopher">blazetopher</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a name="udunitspy" class="anchor" href="#udunitspy"><span class="octicon octicon-link"></span></a>udunitspy</h1>
+
+<p>Python wrapper library for udunits2</p>
+
+<h1>
+<a name="prerequisites" class="anchor" href="#prerequisites"><span class="octicon octicon-link"></span></a>Prerequisites</h1>
+
+<p><em>These steps are tailored for a Mac OSX environment.  The library **should</em>* function on linux as well, but modifications to the following setup may be required*</p>
+
+<h3>
+<a name="required-libraries" class="anchor" href="#required-libraries"><span class="octicon octicon-link"></span></a>Required libraries</h3>
+
+<ul>
+<li>git</li>
+<li>python</li>
+<li>uduints</li>
+</ul><h1>
+<a name="homebrew-osx" class="anchor" href="#homebrew-osx"><span class="octicon octicon-link"></span></a>Homebrew (OSX)</h1>
+
+<pre><code>/usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
+</code></pre>
+
+<p><strong>Install</strong> git, python, and udunits with Homebrew</p>
+
+<pre><code>brew install git python udunits
+</code></pre>
+
+<h2>
+<a name="optional-python-dependencies" class="anchor" href="#optional-python-dependencies"><span class="octicon octicon-link"></span></a>Optional Python Dependencies</h2>
+
+<p>These dependencies are optional, but tend to make life a little easier.</p>
+
+<h1>
+<a name="virtualenv" class="anchor" href="#virtualenv"><span class="octicon octicon-link"></span></a>Virtualenv</h1>
+
+<p>Virtualenv allows creation of isolated Python environments.  See more <a href="http://www.virtualenv.org/en/1.9.X/#">here</a>.</p>
+
+<p><strong>Install</strong> virtualenv and virtualenvwrapper modules for your python 2.7 installation
+<em>Note: This may require OSX's XCode (can use XCode 3.3 free version)</em></p>
+
+<pre><code>easy_install --upgrade virtualenv
+easy_install --upgrade virtualenvwrapper
+</code></pre>
+
+<p>Setup a virtualenv to run coverage-model (use any name you like):</p>
+
+<pre><code>mkvirtualenv --python=python2.7 udunitspy
+</code></pre>
+
+<p>Ensure you're 'working in' the virtualenv you just made:</p>
+
+<pre><code>workon udunitspy
+</code></pre>
+
+<h1>
+<a name="pip" class="anchor" href="#pip"><span class="octicon octicon-link"></span></a>Pip</h1>
+
+<p>You can just use <em>easy_install</em> if you prefer.</p>
+
+<p><strong>Install</strong> pip</p>
+
+<pre><code>easy_install pip
+</code></pre>
+
+<h1>
+<a name="ipython" class="anchor" href="#ipython"><span class="octicon octicon-link"></span></a>ipython</h1>
+
+<p>ipython is an 'extended' python shell which provides useful functionality such as tab-complete, history, etc.  If you wish to use it, you can install it by running:</p>
+
+<pre><code>pip install ipython
+</code></pre>
+
+<h2>
+<a name="required-python-dependencies" class="anchor" href="#required-python-dependencies"><span class="octicon octicon-link"></span></a>Required Python Dependencies</h2>
+
+<p>These dependencies are required for the library to function</p>
+
+<h1>
+<a name="numpy" class="anchor" href="#numpy"><span class="octicon octicon-link"></span></a>Numpy</h1>
+
+<p>The numpy library is finiky about installing as a dependency via setuptools, so ensure you have it installed in your virtualenv by running:</p>
+
+<pre><code>pip install numpy
+</code></pre>
+
+<h1>
+<a name="installation-as-a-library" class="anchor" href="#installation-as-a-library"><span class="octicon octicon-link"></span></a>Installation as a library</h1>
+
+<p><strong>Ensure your environment matches the prerequisites prior to running the steps below</strong></p>
+
+<h3>
+<a name="as-a-local-library" class="anchor" href="#as-a-local-library"><span class="octicon octicon-link"></span></a>As a local library</h3>
+
+<p>Run the following command:</p>
+
+<pre><code>pip install udunitspy
+</code></pre>
+
+<h3>
+<a name="as-a-project-dependency" class="anchor" href="#as-a-project-dependency"><span class="octicon octicon-link"></span></a>As a project dependency</h3>
+
+<p>The library can be included in your project by adding the following to your <em>setup.py</em>:</p>
+
+<pre><code>install_requires = [
+    ...,
+    udunitspy,
+],
+</code></pre>
+
+<h1>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h1>
+
+<p>Once the library is installed, you should be able to access and use it from the ipython/python shell:</p>
+
+<pre><code>In [1]: from udunitspy import Unit
+
+In [2]: m = Unit('m')
+
+In [3]: ft = Unit('ft')
+
+In [4]: m.are_convertible(ft)
+Out[4]: True
+
+In [5]: m2ft = m.get_converter(ft)
+
+In [6]: m2ft.evaluate([20, 22.3, 25.6])
+Out[6]: array([ 65.6168  ,  73.162732,  83.989504])
+</code></pre>
+
+<h1>
+<a name="unit-tests" class="anchor" href="#unit-tests"><span class="octicon octicon-link"></span></a>Unit Tests</h1>
+
+<p>Unit tests can be run with the following command:</p>
+
+<pre><code>py.test
+</code></pre>
+
+<h1>
+<a name="source-installation-for-development" class="anchor" href="#source-installation-for-development"><span class="octicon octicon-link"></span></a>Source installation (for development)</h1>
+
+<p>Clone the git repository:</p>
+
+<pre><code>git clone https://github.com/blazetopher/udunitspy.git
+cd udunitspy
+</code></pre>
+
+<h3>
+<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h3>
+
+<p>Install the uduintspy library for development:</p>
+
+<pre><code>python setup.py develop
+</code></pre>
+
+<p>During development, there is no need to reinstall.  Changes to the source are automatically reflected in your working environment.</p>
+
+<h1>
+<a name="uninstall" class="anchor" href="#uninstall"><span class="octicon octicon-link"></span></a>Uninstall</h1>
+
+<p><em>**NOTE:</em>* Please ensure these libraries aren't needed by other software before uninstalling!!*  </p>
+
+<p>The library and dependencies can be uninstalled by calling:</p>
+
+<pre><code>pip uninstall -y numexpr pytest py pytest-cov coverage cov-core udunitspy
+</code></pre>
+
+<p>Leftover files &amp; directories can be removed by running:</p>
+
+<pre><code>clean
+</code></pre>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
