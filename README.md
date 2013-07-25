@@ -1,4 +1,4 @@
-udunitspy
+[udunitspy](http://blazetopher.github.io/udunitspy)
 ==============
 
 Python wrapper library for udunits2
