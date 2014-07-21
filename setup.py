@@ -43,6 +43,7 @@ class egg_install(bdist_egg):
 include_dirs = [
         '/usr/include',
         '/usr/local/include',
+        '/usr/include/udunits2',
         ]
 if 'C_INCLUDE_PATH' in os.environ:
     include_dirs = os.environ['C_INCLUDE_PATH'].split(':') + include_dirs
