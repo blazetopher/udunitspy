@@ -89,6 +89,7 @@ setup(name='udunitspy',
     ext_modules = [udunits_module],
     classifiers=classifiers.split('\n'),
     packages=['udunitspy', 'udunitspy.test'],
+    use_2to3=True,
     data_files=[('etc/udunits', xml_files),],
     install_requires = [
         'numexpr==2.1',
