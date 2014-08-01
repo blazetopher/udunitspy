@@ -10,6 +10,7 @@ Python wrapper library for udunits2
   * git
   * python
   * uduints
+  * expat
 
 #Homebrew (OSX)
 
