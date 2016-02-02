@@ -142,7 +142,7 @@ if not os.path.exists(DEFAULT_UDUNITS_PATH):
     DEFAULT_UDUNITS_PATH = os.path.realpath(os.path.join(os.path.dirname(__file__), '..','..','..','..','etc','udunits','udunits2.xml'))
 if not os.path.exists(DEFAULT_UDUNITS_PATH):
     # Installed by udunits library
-    DEFAULT_UDUNITS_PATH = '/usr/local/share/udunits/udunits2.xml'
+    DEFAULT_UDUNITS_PATH = '/usr/share/xml/udunits/udunits2.xml'
 
 log.info('Using udunits2.xml database: %s', DEFAULT_UDUNITS_PATH)
 DEFAULT_SYSTEM = System(path=DEFAULT_UDUNITS_PATH)
