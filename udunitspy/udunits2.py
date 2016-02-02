@@ -139,7 +139,7 @@ class System:
 DEFAULT_UDUNITS_PATH = os.path.realpath(os.path.join(sys.prefix, 'etc','udunits','udunits2.xml'))
 if not os.path.exists(DEFAULT_UDUNITS_PATH):
     # Development
-    DEFAULT_UDUNITS_PATH = os.path.realpath(os.path.join(os.path.dirname(__file__), '..','etc','udunits','udunits2.xml'))
+    DEFAULT_UDUNITS_PATH = os.path.realpath(os.path.join(os.path.dirname(__file__), '..','..','..','..','etc','udunits','udunits2.xml'))
 if not os.path.exists(DEFAULT_UDUNITS_PATH):
     # Installed by udunits library
     DEFAULT_UDUNITS_PATH = '/usr/local/share/udunits/udunits2.xml'
