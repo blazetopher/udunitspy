@@ -3,7 +3,7 @@
 
 Python wrapper library for udunits2
 
-Note: this package is no longer being developed or supported.  We recommend the use of [cf_units](https://github.com/SciTools/cf_units) instead. 
+## Note: this package is no longer being developed or supported.  We recommend the use of [cf_units](https://github.com/SciTools/cf_units) instead. 
 
 #Prerequisites
 *These steps are tailored for a Mac OSX environment.  The library **should** function on linux as well, but modifications to the following setup may be required*
