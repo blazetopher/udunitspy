@@ -92,7 +92,7 @@ setup(name='udunitspy',
     use_2to3=True,
     data_files=[('etc/udunits', xml_files),],
     install_requires = [
-        'numexpr==2.1',
+        'numexpr==2.8.5',
         'pytest==2.3.2',
         'pytest-cov==1.6',
     ],
